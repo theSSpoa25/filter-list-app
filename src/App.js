@@ -22,7 +22,7 @@ class List extends Component {
         <div>
           <ul>
             {this.state.songs.map(song => 
-              <li>{song.name} by {song.artist}</li>
+              <li className="song">{song.name} by {song.artist}</li>
             )}
           </ul>
         </div>
