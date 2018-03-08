@@ -48,9 +48,22 @@ class App extends Component {
     }
   }
   render() {
+    let songsToRender = this.state.songs
+      ? this.state.songs.filter(song => {
+        let matchesSong = song.name.toLowerCase()
+        .includes(this.state.filterString.toLowerCase())
+
+        let matchesArtist = song.artist.toLowerCase().includes(
+          this.state.filterString.toLowerCase()
+        )
+        return matchesSong || matchesArtist
+      }) : []
     return (
       <div className="App">
-        <Playlist songs={this.state.songs} />
+        <Filter onTextChange ={text => {
+          this.setState({filterString: text})
+        }}/>
+        <Playlist songs={songsToRender} />
       </div>
     );
   }
