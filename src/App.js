@@ -2,7 +2,36 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class List extends Component {
+
+class Filter extends Component {
+  render() {
+    return(
+      <div className="search-filter">
+        <label>Search</label>
+        <input type="text" className="search-input" onKeyUp={e =>
+          this.props.onTextChange(e.target.value)
+        } />
+      </div>
+    )
+  }
+}
+
+class Playlist extends Component {
+  render() {
+    return(
+      <div>
+        <ul>
+          {this.props.songs.map(song => 
+            <li className="song">{song.name} - {song.artist}</li>
+          )}
+        </ul>
+      </div>
+    )
+  }
+}
+
+
+class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -14,27 +43,14 @@ class List extends Component {
         {name: 'Money', artist: 'Pink Floyd'},
         {name: 'Into You', artist: 'Chat Faker'},
         {name: 'You Don\'t Know Me', artist: 'Son Lux'}        
-      ]
+      ],
+      filterString: ''
     }
   }
-    render() {
-      return (
-        <div>
-          <ul>
-            {this.state.songs.map(song => 
-              <li className="song">{song.name} by {song.artist}</li>
-            )}
-          </ul>
-        </div>
-      )
-    }
-  }
-
-class App extends Component {
   render() {
     return (
       <div className="App">
-        <List />
+        <Playlist songs={this.state.songs} />
       </div>
     );
   }
